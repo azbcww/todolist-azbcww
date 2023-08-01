@@ -12,5 +12,13 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  base: '/todolist-azbcww/'
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080', // 前回のサーバーのアドレスと自分のポートの組にする
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/')
+      }
+    }
+  }
 })
